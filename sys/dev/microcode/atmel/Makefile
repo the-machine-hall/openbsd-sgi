@@ -1,17 +1,8 @@
-# $OpenBSD: Makefile,v 1.24 2017/01/23 01:00:58 jsg Exp $
+# $OpenBSD: Makefile,v 1.26 2021/10/03 00:48:45 deraadt Exp $
 
 NOPROG=
 NOMAN=
 CC=${HOSTCC}
-
-# USB capable systems only
-.if (${MACHINE_ARCH} == "powerpc" || \
-    ${MACHINE} == "alpha" || ${MACHINE} == "amd64" || \
-    ${MACHINE} == "arm64" || ${MACHINE} == "armv7" || \
-    ${MACHINE} == "hppa" || ${MACHINE} == "i386" || \
-    ${MACHINE} == "landisk" || ${MACHINE} == "loongson" || \
-    ${MACHINE} == "octeon" || ${MACHINE} == "sgi" || \
-    ${MACHINE} == "sparc64")
 
 FIRM= 	atu-intersil-int atu-intersil-ext \
 	atu-rfmd-int atu-rfmd-ext \
@@ -37,6 +28,5 @@ afterinstall:
 	    ${FIRM} ${DESTDIR}/etc/firmware
 	${INSTALL} -c -o ${BINOWN} -g ${BINGRP} -m 644 \
 	    ${.CURDIR}/atu-license ${DESTDIR}/etc/firmware
-.endif
 
 .include <bsd.prog.mk>
