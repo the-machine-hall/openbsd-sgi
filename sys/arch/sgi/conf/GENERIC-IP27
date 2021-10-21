@@ -276,10 +276,6 @@ safte*		at scsibus?
 ses*		at scsibus?
 uk*		at scsibus?
 
-#### Crypto devices
-hifn*		at pci?		# Hifn7751/7811/7951
-ubsec*		at pci?		# Broadcom 58xx
-
 # PCI "universal" communication device
 puc*		at pci?
 com*		at puc?
