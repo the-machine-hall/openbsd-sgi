@@ -1,4 +1,4 @@
-/*	$OpenBSD: trap.c,v 1.157 2022/01/21 16:39:56 visa Exp $	*/
+/*	$OpenBSD: trap.c,v 1.158 2022/01/25 07:10:19 visa Exp $	*/
 
 /*
  * Copyright (c) 1988 University of Utah.
@@ -880,14 +880,14 @@ fault_common_no_miss:
 		 * is in the kernel.
 		 */
 	    {
-		extern void *kernel_text;
-		extern void *etext;
+		extern char kernel_text[];
+		extern char etext[];
 		vaddr_t va;
 
 		va = (vaddr_t)trapframe->pc;
 		if (trapframe->cause & CR_BR_DELAY)
 			va += 4;
-		if (va > (vaddr_t)&kernel_text && va < (vaddr_t)&etext)
+		if (va > (vaddr_t)kernel_text && va < (vaddr_t)etext)
 			return;
 	    }
 		goto err;
@@ -1239,6 +1239,9 @@ const char *fn_name(vaddr_t);
 #endif
 void stacktrace_subr(struct trapframe *, int, int (*)(const char*, ...));
 
+extern char kernel_text[];
+extern char etext[];
+
 /*
  * Print a stack backtrace.
  */
@@ -1458,12 +1461,9 @@ loop:
 
 end:
 	if (ra) {
-		extern void *kernel_text;
-		extern void *etext;
-
 		if (pc == ra && stksize == 0)
 			(*pr)("stacktrace: loop!\n");
-		else if (ra < (vaddr_t)&kernel_text || ra > (vaddr_t)&etext)
+		else if (ra < (vaddr_t)kernel_text || ra > (vaddr_t)etext)
 			(*pr)("stacktrace: ra corrupted!\n");
 		else {
 			pc = ra;
@@ -1504,7 +1504,10 @@ stacktrace_save_at(struct stacktrace *st, unsigned int skip)
 
 	st->st_count = 0;
 	while (st->st_count < STACKTRACE_MAX && pc != 0) {
-		if (!VALID_ADDRESS(pc) || !VALID_ADDRESS(sp))
+		if ((pc & 0x3) != 0 ||
+		    pc < (vaddr_t)kernel_text || pc >= (vaddr_t)etext)
+			break;
+		if ((sp & 0x7) != 0 || !VALID_ADDRESS(sp))
 			break;
 
 		if (!first) {
@@ -1522,6 +1525,8 @@ stacktrace_save_at(struct stacktrace *st, unsigned int skip)
 		db_symbol_values(sym, &name, NULL);
 		subr = pc - (vaddr_t)diff;
 
+		if ((subr & 0x3) != 0)
+			break;
 		if (subr == (vaddr_t)u_general || subr == (vaddr_t)u_intr)
 			break;
 		if (subr == (vaddr_t)k_general || subr == (vaddr_t)k_intr) {
@@ -1539,11 +1544,11 @@ stacktrace_save_at(struct stacktrace *st, unsigned int skip)
 		done = 0;
 		framesize = 0;
 		for (va = subr; va < pc && !done; va += 4) {
-			inst.word = kdbpeek(va);
+			inst.word = *(uint32_t *)va;
 			if (inst_call(inst.word) || inst_return(inst.word)) {
 				/* Check the delay slot and stop. */
 				va += 4;
-				inst.word = kdbpeek(va);
+				inst.word = *(uint32_t *)va;
 				done = 1;
 			}
 			switch (inst.JType.op) {
@@ -1557,7 +1562,7 @@ stacktrace_save_at(struct stacktrace *st, unsigned int skip)
 			case OP_SD:
 				if (inst.IType.rs == SP &&
 				    inst.IType.rt == RA && ra == 0)
-					ra = kdbpeekd(sp +
+					ra = *(uint64_t *)(sp +
 					    (int16_t)inst.IType.imm);
 				break;
 			case OP_DADDI:
