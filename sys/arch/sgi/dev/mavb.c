@@ -174,7 +174,7 @@ int mavb_trigger_output(void *, void *, void *, int, void (*)(void *),
 int mavb_trigger_input(void *, void *, void *, int, void (*)(void *),
 		       void *, struct audio_params *);
 
-struct audio_hw_if mavb_sa_hw_if = {
+const struct audio_hw_if mavb_sa_hw_if = {
 	mavb_open,
 	mavb_close,
 	mavb_set_params,
