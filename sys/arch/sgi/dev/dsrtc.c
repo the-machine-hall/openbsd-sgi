@@ -66,15 +66,15 @@ struct cfdriver dsrtc_cd = {
 	NULL, "dsrtc", DV_DULL
 };
 
-struct cfattach dsrtc_macebus_ca = {
+const struct cfattach dsrtc_macebus_ca = {
 	sizeof(struct dsrtc_softc), dsrtc_match, dsrtc_attach_macebus
 };
 
-struct cfattach dsrtc_ioc_ca = {
+const struct cfattach dsrtc_ioc_ca = {
 	sizeof(struct dsrtc_softc), dsrtc_match, dsrtc_attach_ioc
 };
 
-struct cfattach dsrtc_iof_ca = {
+const struct cfattach dsrtc_iof_ca = {
 	sizeof(struct dsrtc_softc), dsrtc_match, dsrtc_attach_ioc
 };
 

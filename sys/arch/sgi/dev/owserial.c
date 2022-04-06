@@ -38,7 +38,7 @@
 int	owserial_match(struct device *, void *, void *);
 void	owserial_attach(struct device *, struct device *, void *);
 
-struct cfattach owserial_ca = {
+const struct cfattach owserial_ca = {
 	sizeof(struct owserial_softc), owserial_match, owserial_attach,
 };
 

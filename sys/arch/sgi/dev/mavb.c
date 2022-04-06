@@ -150,7 +150,7 @@ void ad1843_dump_regs(struct mavb_softc *);
 int mavb_match(struct device *, void *, void *);
 void mavb_attach(struct device *, struct device *, void *);
 
-struct cfattach mavb_ca = {
+const struct cfattach mavb_ca = {
 	sizeof(struct mavb_softc), mavb_match, mavb_attach
 };
 

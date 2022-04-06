@@ -173,7 +173,7 @@ int	gbe_match(struct device *, void *, void *);
 void	gbe_attach(struct device *, struct device *, void *);
 int	gbe_activate(struct device *, int);
 
-struct cfattach gbe_ca = {
+const struct cfattach gbe_ca = {
 	sizeof (struct gbe_softc), gbe_match, gbe_attach,
 	NULL, gbe_activate
 };

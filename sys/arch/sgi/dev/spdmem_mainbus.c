@@ -43,7 +43,7 @@ int	spdmem_mainbus_match(struct device *, void *, void *);
 void	spdmem_mainbus_attach(struct device *, struct device *, void *);
 uint8_t	spdmem_mainbus_read(struct spdmem_softc *, uint8_t);
 
-struct cfattach spdmem_mainbus_ca = {
+const struct cfattach spdmem_mainbus_ca = {
 	sizeof(struct spdmem_mainbus_softc),
 	spdmem_mainbus_match, spdmem_mainbus_attach
 };

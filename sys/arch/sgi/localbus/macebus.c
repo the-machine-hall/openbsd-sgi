@@ -101,7 +101,7 @@ void	 mace_space_barrier(bus_space_tag_t, bus_space_handle_t, bus_size_t,
 
 bus_addr_t macebus_pa_to_device(paddr_t, int);
 
-struct cfattach macebus_ca = {
+const struct cfattach macebus_ca = {
 	sizeof(struct device), macebusmatch, macebusattach
 };
 

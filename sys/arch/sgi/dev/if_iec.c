@@ -267,7 +267,7 @@ struct cfdriver iec_cd = {
 int	iec_match(struct device *, void *, void *);
 void	iec_attach(struct device *, struct device *, void *);
 
-struct cfattach iec_ca = {
+const struct cfattach iec_ca = {
 	sizeof(struct iec_softc), iec_match, iec_attach
 };
 

@@ -43,7 +43,7 @@
 int	com_iof_probe(struct device *, void *, void *);
 void	com_iof_attach(struct device *, struct device *, void *);
 
-struct cfattach com_iof_ca = {
+const struct cfattach com_iof_ca = {
 	sizeof(struct com_softc), com_iof_probe, com_iof_attach
 };
 

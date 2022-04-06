@@ -112,7 +112,7 @@ void	mace_pcibr_configure(struct mace_pcibr_softc *);
 void	mace_pcibr_device_fixup(struct mace_pcibr_softc *, int, int);
 int	mace_pcibr_errintr(void *);
 
-struct cfattach macepcibr_ca = {
+const struct cfattach macepcibr_ca = {
 	sizeof(struct mace_pcibr_softc), mace_pcibrmatch, mace_pcibrattach,
 };
 

@@ -83,7 +83,7 @@ struct ioc_softc {
 	int			 sc_attach_flags;
 };
 
-struct cfattach ioc_ca = {
+const struct cfattach ioc_ca = {
 	sizeof(struct ioc_softc), ioc_match, ioc_attach,
 };
 
