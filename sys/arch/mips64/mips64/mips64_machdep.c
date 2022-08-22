@@ -1,4 +1,4 @@
-/*	$OpenBSD: mips64_machdep.c,v 1.36 2021/04/29 12:49:19 visa Exp $ */
+/*	$OpenBSD: mips64_machdep.c,v 1.38 2022/08/22 00:35:06 cheloha Exp $ */
 
 /*
  * Copyright (c) 2009, 2010, 2012 Miodrag Vallat.
@@ -237,6 +237,7 @@ tlb_asid_wrap(struct cpu_info *ci)
  */
 
 void (*md_startclock)(struct cpu_info *);
+void (*md_triggerclock)(void);
 
 extern todr_chip_handle_t todr_handle;
 

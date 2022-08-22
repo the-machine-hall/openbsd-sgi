@@ -1,4 +1,4 @@
-/*	$OpenBSD: cpu.h,v 1.136 2021/07/24 08:21:13 visa Exp $	*/
+/*	$OpenBSD: cpu.h,v 1.139 2022/08/22 00:35:06 cheloha Exp $	*/
 
 /*-
  * Copyright (c) 1992, 1993
@@ -192,6 +192,7 @@ struct cpu_info {
 	volatile int	ci_ipl;			/* software IPL */
 	uint32_t	ci_softpending;		/* pending soft interrupts */
 	int		ci_clock_started;
+	volatile int	ci_clock_deferred;	/* clock interrupt postponed */
 	u_int32_t	ci_cpu_counter_last;	/* last compare value loaded */
 	u_int32_t	ci_cpu_counter_interval; /* # of counter ticks/tick */
 
@@ -277,6 +278,7 @@ void	smp_rendezvous_cpus(unsigned long, void (*)(void *), void *arg);
 #define CPU_BUSY_CYCLE()	do {} while (0)
 
 extern void (*md_startclock)(struct cpu_info *);
+extern void (*md_triggerclock)(void);
 void	cp0_calibrate(struct cpu_info *);
 
 unsigned int cpu_rnd_messybits(void);
@@ -490,6 +492,7 @@ register_t disableintr(void);
 register_t getsr(void);
 register_t setsr(register_t);
 
+uint32_t cp0_get_cause(void);
 u_int	cp0_get_count(void);
 register_t cp0_get_config(void);
 uint32_t cp0_get_config_1(void);
