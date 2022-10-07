@@ -1668,6 +1668,7 @@
 ./usr/share/man/man2/listen.2
 ./usr/share/man/man2/lseek.2
 ./usr/share/man/man2/madvise.2
+./usr/share/man/man2/mimmutable.2
 ./usr/share/man/man2/minherit.2
 ./usr/share/man/man2/mkdir.2
 ./usr/share/man/man2/mkfifo.2
