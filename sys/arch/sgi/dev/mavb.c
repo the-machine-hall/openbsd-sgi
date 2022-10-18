@@ -789,7 +789,7 @@ mavb_query_devinfo(void *hdl, struct mixer_devinfo *di)
 int
 mavb_get_props(void *hdl)
 {
-	return (AUDIO_PROP_FULLDUPLEX | AUDIO_PROP_INDEPENDENT);
+	return (AUDIO_PROP_FULLDUPLEX);
 }
 
 static void
