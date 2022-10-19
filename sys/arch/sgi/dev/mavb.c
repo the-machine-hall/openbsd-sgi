@@ -175,28 +175,18 @@ int mavb_trigger_input(void *, void *, void *, int, void (*)(void *),
 		       void *, struct audio_params *);
 
 const struct audio_hw_if mavb_sa_hw_if = {
-	mavb_open,
-	mavb_close,
-	mavb_set_params,
-	mavb_round_blocksize,
-	0,
-	0,
-	0,
-	0,
-	0,
-	mavb_halt_output,
-	mavb_halt_input,
-	0,
-	0,
-	mavb_set_port,
-	mavb_get_port,
-	mavb_query_devinfo,
-	0,
-	0,
-	0,
-	mavb_get_props,
-	mavb_trigger_output,
-	mavb_trigger_input
+	.open = mavb_open,
+	.close = mavb_close,
+	.set_params = mavb_set_params,
+	.round_blocksize = mavb_round_blocksize,
+	.halt_output = mavb_halt_output,
+	.halt_input = mavb_halt_input,
+	.set_port = mavb_set_port,
+	.get_port = mavb_get_port,
+	.query_devinfo = mavb_query_devinfo,
+	.get_props = mavb_get_props,
+	.trigger_output = mavb_trigger_output,
+	.trigger_input = mavb_trigger_input
 };
 
 int
