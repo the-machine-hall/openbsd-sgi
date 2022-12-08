@@ -1,4 +1,4 @@
-/*	$OpenBSD: lcore_access.S,v 1.30 2020/10/21 15:50:00 deraadt Exp $ */
+/*	$OpenBSD: lcore_access.S,v 1.33 2022/12/08 01:25:45 guenther Exp $ */
 
 /*
  * Copyright (c) 2001-2003 Opsycon AB  (www.opsycon.se / www.opsycon.com)
@@ -77,8 +77,8 @@ sigcode:
 	PTR_ADDU a0, sp, 4*REGSZ		# address of sigcontext
 	LI	v0, SYS_sigreturn	# sigreturn(scp)
 	syscall
-	.globl  _C_LABEL(sigcoderet)
-_C_LABEL(sigcoderet):
+	.globl	sigcoderet
+sigcoderet:
 	LI	v0, SYS_exit		# just in case sigreturn fails
 	syscall
 	.globl	esigcode
