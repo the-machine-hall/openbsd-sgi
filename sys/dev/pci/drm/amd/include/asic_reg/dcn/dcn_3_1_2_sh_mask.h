@@ -1438,6 +1438,14 @@
 #define DCCG_GATE_DISABLE_CNTL3__SYMCLK32_LE0_GATE_DISABLE_MASK                                               0x00200000L
 #define DCCG_GATE_DISABLE_CNTL3__SYMCLK32_ROOT_LE1_GATE_DISABLE_MASK                                          0x00400000L
 #define DCCG_GATE_DISABLE_CNTL3__SYMCLK32_LE1_GATE_DISABLE_MASK                                               0x00800000L
+//HDMISTREAMCLK0_DTO_PARAM
+#define HDMISTREAMCLK0_DTO_PARAM__HDMISTREAMCLK0_DTO_PHASE__SHIFT                                             0x0
+#define HDMISTREAMCLK0_DTO_PARAM__HDMISTREAMCLK0_DTO_MODULO__SHIFT                                            0x8
+#define HDMISTREAMCLK0_DTO_PARAM__HDMISTREAMCLK0_DTO_EN__SHIFT                                                0x10
+#define HDMISTREAMCLK0_DTO_PARAM__HDMISTREAMCLK0_DTO_PHASE_MASK                                               0x000000FFL
+#define HDMISTREAMCLK0_DTO_PARAM__HDMISTREAMCLK0_DTO_MODULO_MASK                                              0x0000FF00L
+#define HDMISTREAMCLK0_DTO_PARAM__HDMISTREAMCLK0_DTO_EN_MASK                                                  0x00010000L
+
 //DCCG_AUDIO_DTBCLK_DTO_PHASE
 #define DCCG_AUDIO_DTBCLK_DTO_PHASE__DCCG_AUDIO_DTBCLK_DTO_PHASE__SHIFT                                       0x0
 #define DCCG_AUDIO_DTBCLK_DTO_PHASE__DCCG_AUDIO_DTBCLK_DTO_PHASE_MASK                                         0xFFFFFFFFL
@@ -33953,12 +33961,14 @@
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_GC_CONT__SHIFT                                                     0x5
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ISRC_SEND__SHIFT                                                   0x8
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ISRC_CONT__SHIFT                                                   0x9
+#define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ACP_SEND__SHIFT                                                    0xc
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ISRC_LINE__SHIFT                                                   0x10
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_NULL_SEND_MASK                                                     0x00000001L
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_GC_SEND_MASK                                                       0x00000010L
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_GC_CONT_MASK                                                       0x00000020L
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ISRC_SEND_MASK                                                     0x00000100L
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ISRC_CONT_MASK                                                     0x00000200L
+#define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ACP_SEND_MASK                                                      0x00001000L
 #define DIG0_HDMI_VBI_PACKET_CONTROL__HDMI_ISRC_LINE_MASK                                                     0x003F0000L
 //DIG0_HDMI_INFOFRAME_CONTROL0
 #define DIG0_HDMI_INFOFRAME_CONTROL0__HDMI_AUDIO_INFO_SEND__SHIFT                                             0x4
