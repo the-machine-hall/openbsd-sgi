@@ -1,4 +1,4 @@
-/*	$OpenBSD: pte.h,v 1.22 2019/04/26 16:27:36 visa Exp $	*/
+/*	$OpenBSD: pte.h,v 1.24 2023/01/11 03:17:56 visa Exp $	*/
 
 /*
  * Copyright (c) 1988 University of Utah.
@@ -83,8 +83,7 @@ typedef u_int32_t pt_entry_t;
 #define	PTE_CLEAR_SWBITS(reg)						\
 	.set	push;							\
 	.set	mips64r2;						\
-	/* Clear SW bits around PG_XI. */				\
-	dins	reg, zero, (PTE_BITS - 1), 1;				\
+	/* Clear SW bits between PG_XI and PG_FRAMEBITS. */		\
 	dins	reg, zero, PG_FRAMEBITS, (PTE_BITS - 2 - PG_FRAMEBITS);	\
 	.set	pop
 #else
@@ -121,9 +120,9 @@ typedef u_int32_t pt_entry_t;
 #define	PG_SHIFT	0
 #else
 #ifdef MIPS_PTE64
-#define	PG_FRAMEBITS	61
+#define	PG_FRAMEBITS	60
 #else
-#define	PG_FRAMEBITS	29
+#define	PG_FRAMEBITS	28
 #endif
 #define	PG_FRAME	((1ULL << PG_FRAMEBITS) - (1ULL << PG_SHIFT))
 #define	PG_SHIFT	6
@@ -138,14 +137,15 @@ typedef u_int32_t pt_entry_t;
 #define	PG_RO		(1ULL << (PG_FRAMEBITS + 1))
 #define	PG_SP		(1ULL << (PG_FRAMEBITS + 0))	/* ``special'' bit */
 #else
-#define	PG_WIRED	(1ULL << (PG_FRAMEBITS + 2))
-			/* 1ULL << (PG_FRAMEBITS + 1) is PG_XI. */
+#define	PG_WIRED	(1ULL << (PG_FRAMEBITS + 1))
 #define	PG_RO		(1ULL << (PG_FRAMEBITS + 0))
 #endif
 
 #ifdef CPU_MIPS64R2
-#define	PG_XI		(1ULL << (PTE_BITS - 2))
+#define	PG_RI		(1ULL << (PG_FRAMEBITS + 3))
+#define	PG_XI		(1ULL << (PG_FRAMEBITS + 2))
 #else
+#define	PG_RI		0x00000000
 #define	PG_XI		0x00000000
 #endif
 
@@ -170,11 +170,7 @@ typedef u_int32_t pt_entry_t;
 #define	PG_CACHED	(CCA_CACHED << PG_CCA_SHIFT)
 #define	PG_CACHEMODE	(7 << PG_CCA_SHIFT)
 
-#define	PG_ATTR		(PG_CACHEMODE | PG_M | PG_V | PG_G)
-#define	PG_ROPAGE	(PG_V | PG_RO | PG_CACHED) /* Write protected */
-#define	PG_RWPAGE	(PG_V | PG_M | PG_CACHED)  /* Not w-prot not clean */
-#define	PG_CWPAGE	(PG_V | PG_CACHED)	   /* Not w-prot but clean */
-#define	PG_IOPAGE	(PG_G | PG_V | PG_M | PG_UNCACHED)
+#define	PG_PROTMASK	(PG_M | PG_RO | PG_RI | PG_XI)
 
 #define	pfn_to_pad(pa)	((((paddr_t)pa) & PG_FRAME) << PG_SHIFT)
 #define	vad_to_pfn(va)	(((va) >> PG_SHIFT) & PG_FRAME)
