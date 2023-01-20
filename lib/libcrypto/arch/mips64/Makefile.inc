@@ -1,4 +1,4 @@
-# $OpenBSD: Makefile.inc,v 1.5 2019/05/11 13:05:25 tb Exp $
+# $OpenBSD: Makefile.inc,v 1.7 2023/01/20 10:07:52 jsing Exp $
 
 # mips64-specific libcrypto build rules
 
@@ -13,7 +13,6 @@ SRCS+= bf_enc.c
 SRCS+= bn_asm.c
 .else
 SSLASM+= bn mips bn-mips
-CFLAGS+= -DBN_DIV3W
 .endif
 SSLASM+= bn mips-mont mips-mont
 CFLAGS+= -DOPENSSL_BN_ASM_MONT
