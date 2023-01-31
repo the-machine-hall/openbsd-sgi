@@ -9,11 +9,7 @@ SSLASM+= aes aes-mips aes-mips
 # bf
 SRCS+= bf_enc.c
 # bn
-.if ${MACHINE} == "sgi"	# because of R4000 support
-SRCS+= bn_asm.c
-.else
 SSLASM+= bn mips bn-mips
-.endif
 SSLASM+= bn mips-mont mips-mont
 CFLAGS+= -DOPENSSL_BN_ASM_MONT
 # camellia
