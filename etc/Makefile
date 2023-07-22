@@ -19,7 +19,8 @@ KERNELS = GENERIC bsd
 $K:
 	cd ../sys/arch/${MACHINE}/compile/${CONF} && \
 		{ [[ -n "${KEEPKERNELS}" ]] || ${MAKE} cleandir; } && \
-		${MAKE} config && ${MAKE} clean && exec ${MAKE};
+		${MAKE} config && ${MAKE} clean && exec ${MAKE} -j2;
+		## use multiple cpus when making kernels
 .  endif
 ALL_KERNELS += $K
 .endfor
