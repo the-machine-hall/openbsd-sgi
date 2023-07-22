@@ -62,8 +62,8 @@ _dl_boot_bind(const long sp, long *dl_data, Elf_Dyn *dynp)
 	const RELOC_TYPE	*rend;
 	const RELOC_TYPE	*dt_reloc;	/* DT_REL */
 	unsigned		dt_relocsz;	/* DT_RELSZ */
-	const Elf_Sym		*dt_symtab;
-	Elf_Addr		*dt_pltgot;
+	const Elf_Sym		*dt_symtab=NULL;
+	Elf_Addr		*dt_pltgot=NULL;
 	unsigned		dt_local_gotno, dt_gotsym, dt_symtabno;
 
 	/*
