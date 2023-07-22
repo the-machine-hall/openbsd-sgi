@@ -179,8 +179,11 @@ void	pmap_page_cache(vm_page_t, u_int);
  * and many structures containing fields which will be used with
  * <machine/atomic.h> routines are allocated from pools, __HAVE_PMAP_DIRECT can
  * not be defined on systems which may use flawed processors.
+ *
+ * There could be a similar problem for the IP28 aka POWER Indigo2 R10000, so
+ * we exclude the definition of __HAVE_PMAP_DIRECT for these systems, too.
  */
-#if !defined(CPU_R5000) && !defined(CPU_RM7000)
+#if !( defined(CPU_R5000) || defined(CPU_RM7000) || ( defined(TGT_INDIGO2) && defined(CPU_R10000) ) )
 #define	__HAVE_PMAP_DIRECT
 vaddr_t	pmap_map_direct(vm_page_t);
 vm_page_t pmap_unmap_direct(vaddr_t);
