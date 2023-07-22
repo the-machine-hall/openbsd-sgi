@@ -15,7 +15,8 @@ SKEY?=		yes
 # Set `YP' to `yes' to build with support for NIS/YP.
 YP?=		yes
 
-CLANG_ARCH=aarch64 amd64 arm i386 mips64 mips64el powerpc powerpc64 riscv64 sparc64
+## don't build clang on mips64 (sgi in this case)
+CLANG_ARCH=aarch64 amd64 arm i386 mips64el powerpc powerpc64 riscv64 sparc64
 GCC4_ARCH=alpha hppa sh sparc64
 GCC3_ARCH=m88k
 LLD_ARCH=aarch64 amd64 arm i386 powerpc powerpc64 riscv64

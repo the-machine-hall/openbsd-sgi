@@ -4,7 +4,7 @@
 .include <bsd.own.mk>
 
 .if make(obj)
-SUBDIR+=	cc clang gcc
+SUBDIR+=	cc gcc
 .else
 .  if ${BUILD_GCC3:L} == "yes"
 SUBDIR+=	gcc
