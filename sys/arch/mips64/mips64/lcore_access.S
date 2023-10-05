@@ -64,6 +64,7 @@ onfault_table:
 #else
 	PTR_VAL	0
 #endif
+	PTR_VAL	_guarderr
 	.text
 
 /*
