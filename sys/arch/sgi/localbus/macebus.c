@@ -538,6 +538,11 @@ macebus_splx(int newipl)
 	/* Update masks to new ipl. Order highly important! */
 	ci->ci_ipl = newipl;
 	crime_setintrmask(newipl);
+
+	/* Trigger deferred clock interrupt if it is now unmasked. */
+	if (ci->ci_clock_deferred && newipl < IPL_CLOCK)
+		md_triggerclock();
+
 	/* If we still have softints pending trigger processing. */
 	if (ci->ci_softpending != 0 && newipl < IPL_SOFTINT)
 		setsoftintr0();
