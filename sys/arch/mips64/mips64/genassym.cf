@@ -48,6 +48,7 @@ member	PCB_FPREGS	pcb_regs.f0
 member	pcb_context
 member	pcb_onfault
 member	pcb_segtab
+member	pcb_nwired
 
 struct	cpu_info
 member	ci_cpuid
