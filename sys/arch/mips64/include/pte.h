@@ -95,17 +95,30 @@ typedef u_int32_t pt_entry_t;
 
 /* entryhi values */
 
+#ifndef CPU_R8000
 #define	PG_HVPN		(-2 * PAGE_SIZE)	/* Hardware page number mask */
 #define	PG_ODDPG	PAGE_SIZE
+#endif	/* !R8000 */
 
 /* Address space ID */
+#ifdef CPU_R8000
+#define	PG_ASID_MASK		0x0000000000000ff0
+#define	PG_ASID_SHIFT		4
+#define	ICACHE_ASID_SHIFT	40
+#define	MIN_USER_ASID		0
+#else
 #define	PG_ASID_MASK		0x00000000000000ff
 #define	PG_ASID_SHIFT		0
 #define	MIN_USER_ASID		1
+#endif
 #define	PG_ASID_COUNT		256	/* Number of available ASID */
 
 /* entrylo values */
 
+#ifdef CPU_R8000
+#define	PG_FRAME	0xfffff000
+#define	PG_SHIFT	0
+#else
 #ifdef MIPS_PTE64
 #define	PG_FRAMEBITS	60
 #else
@@ -113,10 +126,20 @@ typedef u_int32_t pt_entry_t;
 #endif
 #define	PG_FRAME	((1ULL << PG_FRAMEBITS) - (1ULL << PG_SHIFT))
 #define	PG_SHIFT	6
+#endif
 
 /* software pte bits - not put in entrylo */
+#if defined(CPU_R8000)
+#define	PG_WIRED	0x00000010
+#define	PG_RO		0x00000020
+#elif defined(CPU_R4000)
+#define	PG_WIRED	(1ULL << (PG_FRAMEBITS + 2))
+#define	PG_RO		(1ULL << (PG_FRAMEBITS + 1))
+#define	PG_SP		(1ULL << (PG_FRAMEBITS + 0))	/* ``special'' bit */
+#else
 #define	PG_WIRED	(1ULL << (PG_FRAMEBITS + 1))
 #define	PG_RO		(1ULL << (PG_FRAMEBITS + 0))
+#endif
 
 #ifdef CPU_MIPS64R2
 #define	PG_RI		(1ULL << (PG_FRAMEBITS + 3))
@@ -127,10 +150,18 @@ typedef u_int32_t pt_entry_t;
 #endif
 
 #define	PG_NV		0x00000000
+#ifdef CPU_R8000
+#define	PG_G		0x00000000	/* no such concept for R8000 */
+#define	PG_V		0x00000080
+#define	PG_M		0x00000100
+#define	PG_CCA_SHIFT	9
+#else
 #define	PG_G		0x00000001
 #define	PG_V		0x00000002
 #define	PG_M		0x00000004
 #define	PG_CCA_SHIFT	3
+#endif
+#define	PG_NV		0x00000000
 
 #define	PG_UNCACHED	(CCA_NC << PG_CCA_SHIFT)
 #define	PG_CACHED_NC	(CCA_NONCOHERENT << PG_CCA_SHIFT)
@@ -144,6 +175,7 @@ typedef u_int32_t pt_entry_t;
 #define	pfn_to_pad(pa)	((((paddr_t)pa) & PG_FRAME) << PG_SHIFT)
 #define	vad_to_pfn(va)	(((va) >> PG_SHIFT) & PG_FRAME)
 
+#ifndef CPU_R8000
 #define	PG_SIZE_4K	0x00000000
 #define	PG_SIZE_16K	0x00006000
 #define	PG_SIZE_64K	0x0001e000
@@ -156,5 +188,6 @@ typedef u_int32_t pt_entry_t;
 #elif PAGE_SHIFT == 14
 #define	TLB_PAGE_MASK	PG_SIZE_16K
 #endif
+#endif	/* !R8000 */
 
 #endif	/* !_MIPS64_PTE_H_ */

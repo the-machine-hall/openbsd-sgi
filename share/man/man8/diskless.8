@@ -172,7 +172,7 @@ Assign an IP address for myclient in
 192.197.96.12           myclient
 .Ed
 .It
-If booting an alpha, amd64, hppa, i386,
+If booting an alpha, amd64, hppa, i386, sgi,
 or sparc64 client,
 ensure that
 .Xr tftpd 8
@@ -191,7 +191,7 @@ See the
 .Xr rbootd 8
 manual page for more information.
 .It
-If booting a newer alpha, amd64, hppa, i386,
+If booting a newer alpha, amd64, hppa, i386, sgi,
 or sparc64 client,
 install a copy of the appropriate diskless boot loader in the
 .Pa /tftpboot
@@ -224,7 +224,7 @@ If the client's PROM fails to fetch the expected file,
 can be used to discover which filename the client is trying to read.
 .Pp
 Architectures using DHCP
-(newer alpha, amd64, hppa, or i386)
+(newer alpha, amd64, hppa, i386, or sgi)
 should ensure that
 .Xr dhcpd 8
 is configured on the server to serve BOOTP protocol requests.
@@ -361,13 +361,13 @@ For all clients:
 and
 .Xr rpc.bootparamd 8 .
 .Pp
-For alpha, amd64, hppa, i386, and sparc64 clients:
+For alpha, amd64, hppa, i386, sgi, and sparc64 clients:
 .Xr tftpd 8
 .Pp
 For HP 300 and older HPPA clients:
 .Xr rbootd 8
 .Pp
-For newer alpha, amd64, hppa, and i386 clients:
+For newer alpha, amd64, hppa, i386, and sgi clients:
 .Xr dhcpd 8
 .Pp
 For older alpha clients:

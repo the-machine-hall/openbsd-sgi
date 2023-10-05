@@ -131,7 +131,12 @@ build_trampoline(vaddr_t addr, vaddr_t dest)
  * Prototype status registers value for userland processes.
  */
 register_t protosr = SR_FR_32 | SR_XX | SR_UX | SR_KSU_USER | SR_EXL |
-    SR_KX | SR_INT_ENAB;
+#ifdef CPU_R8000
+    SR_SERIALIZE_FPU |
+#else
+    SR_KX |
+#endif
+    SR_INT_ENAB;
 
 /*
  * Set registers on exec for native exec format. For o64/64.
@@ -195,7 +200,20 @@ exec_md_map(struct proc *p, struct exec_package *pack)
 void
 tlb_init(unsigned int tlbsize)
 {
+#ifdef CPU_R8000
+	register_t sr;
+
+	sr = getsr();
+	sr &= ~(((uint64_t)SR_PGSZ_MASK << SR_KPGSZ_SHIFT) |
+	        ((uint64_t)SR_PGSZ_MASK << SR_UPGSZ_SHIFT));
+	sr |= ((uint64_t)SR_PGSZ_16K << SR_KPGSZ_SHIFT) |
+	    ((uint64_t)SR_PGSZ_16K << SR_UPGSZ_SHIFT);
+	protosr |= ((uint64_t)SR_PGSZ_16K << SR_KPGSZ_SHIFT) |
+	    ((uint64_t)SR_PGSZ_16K << SR_UPGSZ_SHIFT);
+	setsr(sr);
+#else
 	tlb_set_page_mask(TLB_PAGE_MASK);
+#endif
 	tlb_set_wired(0);
 	tlb_flush(tlbsize);
 #if UPAGES > 1
@@ -210,7 +228,7 @@ void
 tlb_asid_wrap(struct cpu_info *ci)
 {
 	tlb_flush(ci->ci_hw.tlbsize);
-#if defined(CPU_OCTEON)
+#if defined(CPU_OCTEON) || defined(CPU_R8000)
 	Mips_InvalidateICache(ci, 0, ci->ci_l1inst.size);
 #endif
 }

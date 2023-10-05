@@ -411,6 +411,8 @@ usr
                 ..
                 octeon
                 ..
+                sgi
+                ..
             ..
 
             # ./usr/share/man/man3p
@@ -444,6 +446,8 @@ usr
                 powerpc64
                 ..
                 riscv64
+                ..
+                sgi
                 ..
                 sparc64
                 ..
@@ -486,6 +490,8 @@ usr
                 powerpc64
                 ..
                 riscv64
+                ..
+                sgi
                 ..
                 sparc64
                 ..

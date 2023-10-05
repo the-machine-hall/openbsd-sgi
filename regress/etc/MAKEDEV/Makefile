@@ -9,7 +9,7 @@ ARCHS +=	macppc
 ARCHS +=	octeon
 ARCHS +=	powerpc64
 ARCHS +=	riscv64
-ARCHS +=	sparc64
+ARCHS +=	sgi sparc64
 
 DEVS =		all ramdisk
 

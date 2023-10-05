@@ -11,6 +11,6 @@ MAN=	afterboot.8 autoinstall.8 boot_config.8 bulk.8 \
 SUBDIR=	man8.alpha man8.amd64 man8.arm64 man8.armv7 \
 	man8.hppa man8.i386 man8.landisk \
 	man8.loongson man8.luna88k man8.macppc \
-	man8.octeon man8.powerpc64 man8.riscv64 man8.sparc64
+	man8.octeon man8.powerpc64 man8.riscv64 man8.sgi man8.sparc64
 
 .include <bsd.prog.mk>
