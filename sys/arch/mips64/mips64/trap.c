@@ -825,14 +825,14 @@ fault_common_no_miss:
 		 * is in the kernel.
 		 */
 	    {
-		extern void *kernel_text;
-		extern void *etext;
+		extern char kernel_text[];
+		extern char etext[];
 		vaddr_t va;
 
 		va = (vaddr_t)trapframe->pc;
 		if (trapframe->cause & CR_BR_DELAY)
 			va += 4;
-		if (va > (vaddr_t)&kernel_text && va < (vaddr_t)&etext)
+		if (va > (vaddr_t)kernel_text && va < (vaddr_t)etext)
 			return;
 	    }
 		goto err;
