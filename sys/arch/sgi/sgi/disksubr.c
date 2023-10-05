@@ -193,7 +193,7 @@ finished:
 		return (error);
 	offset = DL_BLKOFFSET(lp, fsoffs + LABELSECTOR) + LABELOFFSET;
 
-	error = checkdisklabel(bp->b_data + offset, lp, fsoffs, fsend);
+	error = checkdisklabel(bp->b_dev, bp->b_data + offset, lp, fsoffs, fsend);
 	return (error);
 }
 
