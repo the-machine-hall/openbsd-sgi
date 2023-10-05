@@ -79,7 +79,6 @@ u_int	xheart_get_timecount(struct timecounter *);
 
 struct timecounter xheart_timecounter = {
 	.tc_get_timecount = xheart_get_timecount,
-	.tc_poll_pps = NULL,
 	.tc_counter_mask = 0xffffffff,	/* truncate 52-bit counter to 32-bit */
 	.tc_frequency = 12500000,
 	.tc_name = "heart",
