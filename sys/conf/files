@@ -227,6 +227,10 @@ file	dev/ic/osiop.c			osiop & (osiop_gsc | osiop_eisa | osiop_mc | osiop_pcctwo)
 device	oosiop: scsi
 file	dev/ic/oosiop.c			oosiop
 
+# Western Digital WD33C93 SCSI controllers
+define	wd33c93ctrl
+file	dev/ic/wd33c93.c		wd33c93ctrl
+
 # 3Com Etherlink-III Ethernet controller
 device	ep: ether, ifnet, ifmedia, mii
 file	dev/ic/elink3.c			ep
