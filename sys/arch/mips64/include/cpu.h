@@ -200,6 +200,11 @@ struct cpu_info {
 	struct clockqueue
 			ci_queue;
 
+#ifdef TGT_ORIGIN
+	u_int16_t	ci_nasid;
+	u_int16_t	ci_slice;
+#endif
+
 	struct pmap	*ci_curpmap;
 	uint		ci_idepth;		/* interrupt depth */
 	volatile u_long	ci_flags;		/* flags; see below */
