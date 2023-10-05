@@ -91,7 +91,6 @@ _DEV(tap, 74)
 _DEV(uk, 32)
 _DEV(vi, 45)
 _DEV(vscsi, 68)
-_DEV(switch, 75)
 _DEV(kstat, 51)
 dnl
 divert(__mddivert)dnl
@@ -113,7 +112,6 @@ target(all, rd, 0)dnl
 target(all, cd, 0, 1)dnl
 target(all, sd, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9)dnl
 target(all, vnd, 0, 1, 2, 3)dnl
-target(all, switch, 0, 1, 2, 3)dnl
 twrget(all, zs, tty, a, b)dnl
 twrget(wscons, wscons, ttyD, cfg, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b)dnl
 twrget(wscons, wscons, ttyE, cfg, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b)dnl

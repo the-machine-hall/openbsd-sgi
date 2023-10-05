@@ -130,7 +130,6 @@ cdev_decl(pci);
 #include "vscsi.h"
 #include "pppx.h"
 #include "fuse.h"
-#include "switch.h"
 
 struct cdevsw	cdevsw[] =
 {
@@ -213,7 +212,7 @@ struct cdevsw	cdevsw[] =
 	cdev_notdef(),			/* 72: was USB scanners */
 	cdev_fuse_init(NFUSE,fuse),	/* 73: fuse */
 	cdev_tun_init(NTUN,tap),	/* 74: Ethernet network tunnel */
-	cdev_switch_init(NSWITCH,switch), /* 75: switch(4) control interface */
+	cdev_notdef(),                  /* 75: was switch(4) */
 	cdev_fido_init(NFIDO,fido),	/* 76: FIDO/U2F security key */
 	cdev_pppx_init(NPPPX,pppac),	/* 77: PPP Access Concentrator */
 	cdev_ujoy_init(NUJOY,ujoy),	/* 78: USB joystick/gamecontroller */
