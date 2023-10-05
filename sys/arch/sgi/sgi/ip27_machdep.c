@@ -903,6 +903,10 @@ ip27_hub_splx(int newipl)
 	ci->ci_ipl = newipl;
 	ip27_hub_setintrmask(newipl);
 
+	/* Trigger deferred clock interrupt if it is now unmasked. */
+	if (ci->ci_clock_deferred && newipl < IPL_CLOCK)
+		md_triggerclock();
+
 	/* If we still have softints pending trigger processing. */
 	if (ci->ci_softpending && newipl < IPL_SOFTINT)
 		setsoftintr0();
