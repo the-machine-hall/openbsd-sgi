@@ -105,7 +105,6 @@ uint	ip27_hub_get_timecount(struct timecounter *);
 
 struct timecounter ip27_hub_timecounter = {
 	.tc_get_timecount = ip27_hub_get_timecount,
-	.tc_poll_pps = NULL,
 	.tc_counter_mask = 0xffffffff,	/* truncated to 32 bits. */
 	.tc_frequency = 1250000,
 	.tc_name = "hubrt",
