@@ -434,6 +434,8 @@ void	tlb_asid_wrap(struct cpu_info *);
 void	tlb_flush(int);
 void	tlb_flush_addr(vaddr_t);
 void	tlb_init(unsigned int);
+int64_t	tlb_probe(vaddr_t);
+void	tlb_set_gbase(vaddr_t, vsize_t);
 void	tlb_set_page_mask(uint32_t);
 void	tlb_set_pid(u_int);
 void	tlb_set_wired(uint32_t);
