@@ -1211,11 +1211,13 @@ hw_cpu_hatch(struct cpu_info *ci)
 
 	(*md_startclock)(ci);
 
-	ncpus++;
-	cpuset_add(&cpus_running, ci);
-
 	mips64_ipi_init();
 	ip27_hub_setintrmask(0);
+
+	ci->ci_flags |= CPUF_RUNNING;
+	membar_sync();
+
+	ncpus++;
 
 	spl0();
 	(void)updateimask(0);
@@ -1241,8 +1243,8 @@ hw_cpu_boot_secondary(struct cpu_info *ci)
 	__asm__ (".set reorder\n");
 	ip27_spinup_turn = SPINUP_TICKET(ci->ci_nasid, ci->ci_slice);
 
-	while (!cpuset_isset(&cpus_running, ci))
-		;
+	while (!CPU_IS_RUNNING(ci))
+		membar_sync();
 }
 
 #endif /* MULTIPROCESSOR */
