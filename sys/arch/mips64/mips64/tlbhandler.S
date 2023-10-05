@@ -649,3 +649,12 @@ LEAF(tlb_set_page_mask, 0)
 	j	ra
 	nop
 END(tlb_set_page_mask)
+
+/*
+ *	Initialize the kernel page table pointer.
+ *	This is a no-op on non-R8000 processors.
+ */
+LEAF(tlb_set_gbase, 0)
+	j	ra
+	 nop
+END(tlb_set_gbase)
