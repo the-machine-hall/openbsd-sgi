@@ -43,7 +43,7 @@
 int	com_macebus_probe(struct device *, void *, void *);
 void	com_macebus_attach(struct device *, struct device *, void *);
 
-struct cfattach com_macebus_ca = {
+const struct cfattach com_macebus_ca = {
 	sizeof(struct com_softc), com_macebus_probe, com_macebus_attach
 };
 
