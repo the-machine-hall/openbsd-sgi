@@ -124,6 +124,11 @@ cpuattach(struct device *parent, struct device *dev, void *aux)
 	}
 #endif
 
+#ifdef TGT_ORIGIN
+	ci->ci_nasid = caa->caa_maa.maa_nasid;
+	ci->ci_slice = caa->caa_maa.maa_physid;
+#endif
+
 	printf(": ");
 
 	displayver = 1;
