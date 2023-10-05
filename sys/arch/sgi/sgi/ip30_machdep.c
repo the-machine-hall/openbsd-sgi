@@ -534,8 +534,8 @@ hw_cpu_boot_secondary(struct cpu_info *ci)
 	*(volatile uint64_t *)(mpconf + MPCONF_LAUNCH(cpuid)) =
 	    (uint64_t)hw_cpu_spinup_trampoline;
 
-	while (!cpuset_isset(&cpus_running, ci))
-		;
+	while (!CPU_IS_RUNNING(ci))
+		membar_sync();
 }
 
 void
@@ -571,10 +571,13 @@ hw_cpu_hatch(struct cpu_info *ci)
 
 	(*md_startclock)(ci);
 
-	ncpus++;
-	cpuset_add(&cpus_running, ci);
-
 	mips64_ipi_init();
+
+	ci->ci_flags |= CPUF_RUNNING;
+	membar_sync();
+
+	ncpus++;
+
 	xheart_setintrmask(0);
 
 	spl0();
