@@ -334,6 +334,33 @@ ahc_run_qoutfifo(struct ahc_softc *ahc)
 	while (ahc->qoutfifo[ahc->qoutfifonext] != SCB_LIST_NULL) {
 
 		scb_index = ahc->qoutfifo[ahc->qoutfifonext];
+#ifdef __sgi__
+		if ((ahc->qoutfifonext & 0x1f) == 0x1f) {
+			u_int modnext;
+			u_int32_t *nextp;
+
+			/*
+			 * Clear 32 bytes of QOUTFIFO at a time
+			 * so that we don't clobber an incoming
+			 * byte DMA to the array on architectures
+			 * non coherent caches.
+			 */
+			modnext = ahc->qoutfifonext & ~0x1f;
+			nextp = (uint32_t *)(&ahc->qoutfifo[modnext]);
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			*nextp++ = 0xFFFFFFFFUL;
+			ahc_dmamap_sync(ahc, ahc->parent_dmat /*shared_data_dmat*/,
+					ahc->shared_data_dmamap,
+					/*offset*/modnext, /*len*/32,
+					BUS_DMASYNC_PREWRITE|BUS_DMASYNC_PREREAD);
+		}
+#else
 		if ((ahc->qoutfifonext & 0x03) == 0x03) {
 			u_int modnext;
 
@@ -351,6 +378,7 @@ ahc_run_qoutfifo(struct ahc_softc *ahc)
 					/*offset*/modnext, /*len*/4,
 					BUS_DMASYNC_PREREAD);
 		}
+#endif
 		ahc->qoutfifonext++;
 
 		scb = ahc_lookup_scb(ahc, scb_index);
@@ -4509,7 +4537,11 @@ ahc_chip_init(struct ahc_softc *ahc)
 	/* All of our queues are empty */
 	for (i = 0; i < 256; i++)
 		ahc->qoutfifo[i] = SCB_LIST_NULL;
+#ifdef __sgi__
+	ahc_sync_qoutfifo(ahc, BUS_DMASYNC_PREWRITE|BUS_DMASYNC_PREREAD);
+#else
 	ahc_sync_qoutfifo(ahc, BUS_DMASYNC_PREREAD);
+#endif
 	for (i = 0; i < 256; i++)
 		ahc->qinfifo[i] = SCB_LIST_NULL;
 
@@ -4722,7 +4754,11 @@ ahc_init(struct ahc_softc *ahc)
 		/* All target command blocks start out invalid. */
 		for (i = 0; i < AHC_TMODE_CMDS; i++)
 			ahc->targetcmds[i].cmd_valid = 0;
+#ifdef __sgi__
+		ahc_sync_tqinfifo(ahc, BUS_DMASYNC_PREWRITE|BUS_DMASYNC_PREREAD);
+#else
 		ahc_sync_tqinfifo(ahc, BUS_DMASYNC_PREREAD);
+#endif
 		ahc->qoutfifo = (uint8_t *)&ahc->targetcmds[256];
 	}
 	ahc->qinfifo = &ahc->qoutfifo[256];
@@ -7083,7 +7119,11 @@ ahc_run_tqinfifo(struct ahc_softc *ahc, int paused)
 				ahc->shared_data_dmamap,
 				ahc_targetcmd_offset(ahc, ahc->tqinfifonext),
 				sizeof(struct target_cmd),
+#ifdef __sgi__
+				BUS_DMASYNC_PREWRITE|BUS_DMASYNC_PREREAD);
+#else
 				BUS_DMASYNC_PREREAD);
+#endif
 		ahc->tqinfifonext++;
 
 		/*

@@ -4,6 +4,7 @@
 /*
  * PLEASE DO NOT FORGET TO REGEN
  *	sys/dev/usb/ukbdmap.c
+ *	sys/arch/sgi/hpc/wskbdmap_sgi.c
  * AFTER ANY CHANGES TO THIS FILE!
  */
 

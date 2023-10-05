@@ -33,7 +33,7 @@
 .\"
 .\"     from: @(#)dca.4	5.2 (Berkeley) 3/27/91
 .\"
-.Dd $Mdocdate: December 16 2021 $
+.Dd $Mdocdate: January 22 2020 $
 .Dt COM 4
 .Os
 .Sh NAME
@@ -89,6 +89,12 @@
 .Pp
 .Cd "# riscv64"
 .Cd "com* at fdt?"
+.Pp
+.Cd "# sgi"
+.Cd "com0 at macebus0 base 0x00390000 irq 5"
+.Cd "com1 at macebus0 base 0x00398000 irq 5"
+.Cd "com0 at ioc? base 0x00020178"
+.Cd "com1 at ioc? base 0x00020170"
 .Pp
 .Cd "# sparc64"
 .Cd "com* at asio?"

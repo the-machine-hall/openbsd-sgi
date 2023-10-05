@@ -311,7 +311,7 @@ distrib:
 SUBDIR+= etc.alpha etc.amd64 etc.arm64 etc.armv7
 SUBDIR+= etc.hppa etc.i386 etc.landisk etc.loongson etc.luna88k
 SUBDIR+= etc.macppc etc.octeon etc.powerpc64 etc.riscv64
-SUBDIR+= etc.sparc64
+SUBDIR+= etc.sgi etc.sparc64
 
 .include <bsd.subdir.mk>
 .include <bsd.prog.mk>

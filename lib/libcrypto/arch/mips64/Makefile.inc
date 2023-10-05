@@ -6,7 +6,11 @@
 CFLAGS+= -DAES_ASM
 SSLASM+= aes aes-mips aes-mips
 # bn
+.if ${MACHINE} == "sgi"	# because of R4000 support
+SRCS+= bn_asm.c
+.else
 SSLASM+= bn mips bn-mips
+.endif
 SSLASM+= bn mips-mont mips-mont
 CFLAGS+= -DOPENSSL_BN_ASM_MONT
 # sha

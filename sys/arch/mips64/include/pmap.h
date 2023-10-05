@@ -137,6 +137,8 @@ typedef struct pmap {
 #define	PGF_CACHED	PG_PMAP1	/* Page is currently cached */
 #define	PGF_ATTR_MOD	PG_PMAP2
 #define	PGF_ATTR_REF	PG_PMAP3
+#define	PGF_EOP_CHECKED	PG_PMAP4
+#define	PGF_EOP_VULN	PG_PMAP5
 #define	PGF_PRESERVE	(PGF_ATTR_MOD | PGF_ATTR_REF)
 
 #define	PMAP_NOCACHE	PMAP_MD0
@@ -169,9 +171,21 @@ void	pmap_page_cache(vm_page_t, u_int);
 #define	pmap_unuse_final(p)		do { /* nothing yet */ } while (0)
 #define	pmap_remove_holes(vm)		do { /* nothing */ } while (0)
 
+/*
+ * Most R5000 processors (and related families) have a silicon bug preventing
+ * the ll/sc (and lld/scd) instructions from honouring the caching mode
+ * when accessing XKPHYS addresses.
+ *
+ * Since pool memory is allocated with pmap_map_direct() if __HAVE_PMAP_DIRECT,
+ * and many structures containing fields which will be used with
+ * <machine/atomic.h> routines are allocated from pools, __HAVE_PMAP_DIRECT can
+ * not be defined on systems which may use flawed processors.
+ */
+#if !defined(CPU_R5000) && !defined(CPU_RM7000)
 #define	__HAVE_PMAP_DIRECT
 vaddr_t	pmap_map_direct(vm_page_t);
 vm_page_t pmap_unmap_direct(vaddr_t);
+#endif
 
 #define	__HAVE_PMAP_COLLECT
 
