@@ -5,7 +5,7 @@
 ARCH=	alpha amd64 armv7 arm64 \
 	hppa i386 landisk loongson \
 	luna88k macppc octeon powerpc64 riscv64 \
-	sparc64
+	sgi sparc64
 
 all:
 	@echo "Doing nothing.  Did you want make syscalls?"

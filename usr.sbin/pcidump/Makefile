@@ -6,7 +6,7 @@
     ${MACHINE} == "landisk" || ${MACHINE} == "loongson" || \
     ${MACHINE} == "macppc" || ${MACHINE} == "octeon" || \
     ${MACHINE} == "powerpc64" || ${MACHINE} == "riscv64" || \
-    ${MACHINE} == "sparc64"
+    ${MACHINE} == "sgi" || ${MACHINE} == "sparc64"
 
 PROG=	pcidump
 

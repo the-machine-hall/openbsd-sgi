@@ -249,11 +249,16 @@ qlw_pci_attach(struct device *parent, struct device *self, void *aux)
 #endif
 
 	/*
-	 * The standard SCSI initiator ID is 7.
+	 * The standard SCSI initiator ID is 7, but various SGI
+	 * machines use 0 as the initiator ID for their onboard SCSI.
 	 * Add-on cards should have a valid nvram, which will override
 	 * these defaults.
 	 */
+#ifdef __sgi__
+	sc->sc_initiator[0] = sc->sc_initiator[1] = 0;
+#else
 	sc->sc_initiator[0] = sc->sc_initiator[1] = 7;
+#endif
 
 #ifdef __sparc64__
 	/*

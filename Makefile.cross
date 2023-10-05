@@ -12,7 +12,7 @@ TARGET_ARCH=	aarch64
 TARGET_ARCH=	arm
 .elif	(${TARGET} == "luna88k")
 TARGET_ARCH=	m88k
-.elif	(${TARGET} == "octeon")
+.elif	(${TARGET} == "sgi" || ${TARGET} == "octeon")
 TARGET_ARCH=	mips64
 .elif	(${TARGET} == "loongson")
 TARGET_ARCH=	mips64el

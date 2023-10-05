@@ -8,7 +8,11 @@ SSLASM+= aes aes-mips aes-mips
 
 # bn
 CFLAGS+= -DLIBRESSL_USE_BN_ASSEMBLY
+.if ${MACHINE} == "sgi"	# because of R4000 support
+SRCS+= bn_asm.c
+.else
 SSLASM+= bn mips bn-mips
+.endif
 SSLASM+= bn mips-mont mips-mont
 CFLAGS+= -DOPENSSL_BN_ASM_MONT
 

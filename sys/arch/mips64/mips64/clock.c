@@ -81,6 +81,9 @@ clockmatch(struct device *parent, void *vcf, void *aux)
 {
 	struct mainbus_attach_args *maa = aux;
 
+#ifdef CPU_R8000
+	return 0;	/* shouldn't be in the kernel configuration anyway */
+#endif
 	return strcmp(maa->maa_name, clock_cd.cd_name) == 0;
 }
 

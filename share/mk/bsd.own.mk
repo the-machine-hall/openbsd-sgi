@@ -24,6 +24,10 @@ LLDB_ARCH=aarch64 amd64
 PIE_ARCH=aarch64 alpha amd64 arm hppa i386 m88k mips64 mips64el powerpc powerpc64 riscv64 sh sparc64
 STATICPIE_ARCH=${PIE_ARCH}
 
+.if ${MACHINE} == "sgi"
+GCC4_ARCH+=mips64
+.endif
+
 .for _arch in ${MACHINE_ARCH}
 .if !empty(GCC4_ARCH:M${_arch})
 COMPILER_VERSION?=gcc4
