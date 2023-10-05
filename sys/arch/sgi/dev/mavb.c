@@ -1166,7 +1166,7 @@ mavb_attach(struct device *parent, struct device *self, void *aux)
 
 	timeout_set(&sc->sc_volume_button_to, mavb_button_repeat, sc);
 
-	audio_attach_mi(&mavb_sa_hw_if, sc, &sc->sc_dev);
+	audio_attach_mi(&mavb_sa_hw_if, sc, NULL, &sc->sc_dev);
 
 	return;
 }
