@@ -168,35 +168,23 @@ int mavb_halt_input(void *);
 int mavb_set_port(void *, struct mixer_ctrl *);
 int mavb_get_port(void *, struct mixer_ctrl *);
 int mavb_query_devinfo(void *, struct mixer_devinfo *);
-int mavb_get_props(void *);
 int mavb_trigger_output(void *, void *, void *, int, void (*)(void *),
 			void *, struct audio_params *);
 int mavb_trigger_input(void *, void *, void *, int, void (*)(void *),
 		       void *, struct audio_params *);
 
-struct audio_hw_if mavb_sa_hw_if = {
-	mavb_open,
-	mavb_close,
-	mavb_set_params,
-	mavb_round_blocksize,
-	0,
-	0,
-	0,
-	0,
-	0,
-	mavb_halt_output,
-	mavb_halt_input,
-	0,
-	0,
-	mavb_set_port,
-	mavb_get_port,
-	mavb_query_devinfo,
-	0,
-	0,
-	0,
-	mavb_get_props,
-	mavb_trigger_output,
-	mavb_trigger_input
+const struct audio_hw_if mavb_sa_hw_if = {
+	.open = mavb_open,
+	.close = mavb_close,
+	.set_params = mavb_set_params,
+	.round_blocksize = mavb_round_blocksize,
+	.halt_output = mavb_halt_output,
+	.halt_input = mavb_halt_input,
+	.set_port = mavb_set_port,
+	.get_port = mavb_get_port,
+	.query_devinfo = mavb_query_devinfo,
+	.trigger_output = mavb_trigger_output,
+	.trigger_input = mavb_trigger_input
 };
 
 int
@@ -784,12 +772,6 @@ mavb_query_devinfo(void *hdl, struct mixer_devinfo *di)
 	}
 
 	return (0);
-}
-
-int
-mavb_get_props(void *hdl)
-{
-	return (AUDIO_PROP_FULLDUPLEX | AUDIO_PROP_INDEPENDENT);
 }
 
 static void
