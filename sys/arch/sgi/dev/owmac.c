@@ -39,7 +39,7 @@
 int	owmac_match(struct device *, void *, void *);
 void	owmac_attach(struct device *, struct device *, void *);
 
-struct cfattach owmac_ca = {
+const struct cfattach owmac_ca = {
 	sizeof(struct owmac_softc), owmac_match, owmac_attach,
 };
 

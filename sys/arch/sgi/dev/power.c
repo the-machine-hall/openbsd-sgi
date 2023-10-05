@@ -47,7 +47,7 @@ struct cfdriver power_cd = {
 void	power_macebus_attach(struct device *, struct device *, void *);
 int	power_macebus_match(struct device *, void *, void *);
 
-struct cfattach power_macebus_ca = {
+const struct cfattach power_macebus_ca = {
 	sizeof(struct device), power_macebus_match, power_macebus_attach
 };
 
@@ -81,7 +81,7 @@ void	power_mainbus_attach(struct device *, struct device *, void *);
 int	power_mainbus_match(struct device *, void *, void *);
 int	power_mainbus_intr(void *);
 
-struct cfattach power_mainbus_ca = {
+const struct cfattach power_mainbus_ca = {
 	sizeof(struct device), power_mainbus_match, power_mainbus_attach
 };
 

@@ -114,12 +114,12 @@ void	iockbc_ioc_attach(struct device *, struct device *, void *);
 void	iockbc_iof_attach(struct device *, struct device *, void *);
 
 #if NIOCKBC_IOC > 0
-struct cfattach iockbc_ioc_ca = {
+const struct cfattach iockbc_ioc_ca = {
 	sizeof(struct iockbc_softc), iockbc_match, iockbc_ioc_attach
 };
 #endif
 #if NIOCKBC_IOF > 0
-struct cfattach iockbc_iof_ca = {
+const struct cfattach iockbc_iof_ca = {
 	sizeof(struct iockbc_softc), iockbc_match, iockbc_iof_attach
 };
 #endif
