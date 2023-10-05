@@ -158,7 +158,7 @@ struct cfdriver zs_cd = {
 	NULL, "zs", DV_TTY
 };
 
-struct cfattach zs_hpc_ca = {
+const struct cfattach zs_hpc_ca = {
 	sizeof(struct zsc_softc), zs_hpc_match, zs_hpc_attach
 };
 

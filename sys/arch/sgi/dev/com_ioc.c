@@ -44,7 +44,7 @@
 int	com_ioc_probe(struct device *, void *, void *);
 void	com_ioc_attach(struct device *, struct device *, void *);
 
-struct cfattach com_ioc_ca = {
+const struct cfattach com_ioc_ca = {
 	sizeof(struct com_softc), com_ioc_probe, com_ioc_attach
 };
 

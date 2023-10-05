@@ -312,7 +312,7 @@ struct cfdriver mec_cd = {
 int	mec_match(struct device *, void *, void *);
 void	mec_attach(struct device *, struct device *, void *);
 
-struct cfattach mec_ca = {
+const struct cfattach mec_ca = {
 	sizeof(struct mec_softc), mec_match, mec_attach
 };
 

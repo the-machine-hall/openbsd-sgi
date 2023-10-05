@@ -104,7 +104,7 @@ struct mkbc_softc {
 int	mkbc_match(struct device *, void *, void *);
 void	mkbc_attach(struct device *, struct device *, void *);
 
-struct cfattach mkbc_ca = {
+const struct cfattach mkbc_ca = {
 	sizeof(struct mkbc_softc), mkbc_match, mkbc_attach
 };
 

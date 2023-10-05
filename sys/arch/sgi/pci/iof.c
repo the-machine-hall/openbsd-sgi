@@ -67,7 +67,7 @@ struct iof_softc {
 	struct iof_intr		*sc_intr[IOC4_NDEVS];
 };
 
-struct cfattach iof_ca = {
+const struct cfattach iof_ca = {
 	sizeof(struct iof_softc), iof_match, iof_attach,
 };
 
