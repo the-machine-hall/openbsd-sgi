@@ -445,6 +445,7 @@ void	tlb_set_page_mask(uint32_t);
 void	tlb_set_pid(u_int);
 void	tlb_set_wired(uint32_t);
 int	tlb_update(vaddr_t, register_t);
+void	tlb_update_indexed(vaddr_t, register_t, register_t, uint);
 
 void	build_trampoline(vaddr_t, vaddr_t);
 void	cpu_switchto_asm(struct proc *, struct proc *);
