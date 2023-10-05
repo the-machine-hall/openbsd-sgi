@@ -263,7 +263,7 @@ getnulldev()
 }
 
 
-int chrtoblktbl[] =  {
+const int chrtoblktbl[] =  {
 	/* VCHR         VBLK */
 	/* 0 */		NODEV,
 	/* 1 */		NODEV,
@@ -290,7 +290,7 @@ int chrtoblktbl[] =  {
 	/* 22 */	8		/* rd */
 };
 
-int nchrtoblktbl = nitems(chrtoblktbl);
+const int nchrtoblktbl = nitems(chrtoblktbl);
 
 #include <dev/cons.h>
 

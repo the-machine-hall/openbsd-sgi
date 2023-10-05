@@ -725,7 +725,7 @@ dksc_device_register(struct device *dev, void *aux)
 
 #endif	/* IP27/35 */
 
-struct nam2blk nam2blk[] = {
+const struct nam2blk nam2blk[] = {
 	{ "sd",		0 },
 	{ "vnd",	2 },
 	{ "cd",		3 },
