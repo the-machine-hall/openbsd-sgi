@@ -658,7 +658,7 @@ restart:
  */
 
 int
-pckbc_xt_translation(pckbc_tag_t self)
+pckbc_xt_translation(pckbc_tag_t self, int *table)
 {
 	/* Translation isn't supported... */
 	return (-1);
