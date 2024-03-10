@@ -1185,8 +1185,6 @@ hw_ipi_intr_establish(int (*func)(void *), u_long cpuid)
 void
 hw_cpu_hatch(struct cpu_info *ci)
 {
-	int s;
-
 	setcurcpu(ci);
 
 	/*
@@ -1225,8 +1223,7 @@ hw_cpu_hatch(struct cpu_info *ci)
 	spl0();
 	(void)updateimask(0);
 
-	SCHED_LOCK(s);
-	cpu_switchto(NULL, sched_chooseproc());
+	sched_toidle();
 }
 
 void
