@@ -460,7 +460,7 @@ mec_attach(struct device *parent, struct device *self, void *aux)
 	ifp->if_watchdog = mec_watchdog;
 
 	if_attach(ifp);
-	ifq_set_maxlen(&ifp->if_snd, MEC_NTXDESC - 1);
+	ifq_init_maxlen(&ifp->if_snd, MEC_NTXDESC - 1);
 	ether_ifattach(ifp);
 
 	/* Establish interrupt handler. */
