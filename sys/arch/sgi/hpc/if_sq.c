@@ -362,7 +362,7 @@ sq_attach(struct device *parent, struct device *self, void *aux)
 	ifp->if_flags = IFF_BROADCAST | IFF_MULTICAST;
 
 	if_attach(ifp);
-	ifq_set_maxlen(&ifp->if_snd, SQ_NTXDESC - 1);
+	ifq_init_maxlen(&ifp->if_snd, SQ_NTXDESC - 1);
 	ether_ifattach(ifp);
 
 	if (haa->hpc_regs->revision == 3) {
