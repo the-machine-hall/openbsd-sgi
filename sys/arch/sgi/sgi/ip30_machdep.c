@@ -541,8 +541,6 @@ hw_cpu_boot_secondary(struct cpu_info *ci)
 void
 hw_cpu_hatch(struct cpu_info *ci)
 {
-	int s;
-
 	/*
 	 * Set curcpu address on this processor.
 	 */
@@ -583,8 +581,7 @@ hw_cpu_hatch(struct cpu_info *ci)
 	spl0();
 	(void)updateimask(0);
 
-	SCHED_LOCK(s);
-	cpu_switchto(NULL, sched_chooseproc());
+	sched_toidle();
 }
 
 int
