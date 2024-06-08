@@ -375,8 +375,7 @@ int2_attach(struct device *parent, struct device *self, void *aux)
 	/*
 	 * The 8254 timer does not interrupt on (some?) IP24 systems.
 	 */
-	if (sys_config.system_type == SGI_IP20 ||
-	    sys_config.system_subtype == IP22_INDIGO2)
+	if (sys_config.system_type == SGI_IP20)
 		int_8254_cal();
 }
 

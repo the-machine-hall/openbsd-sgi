@@ -31,6 +31,7 @@ config		bsd root on rd0a swap on rd0b
 
 mainbus0	at root
 cpu*		at mainbus0
+clock0		at mainbus0
 
 int0		at mainbus0		# Interrupt Controller and scheduling clock
 imc0		at mainbus0		# Memory Controller
