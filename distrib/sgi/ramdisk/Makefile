@@ -22,7 +22,7 @@ bsd.rd.IP${IP}: mr.fs bsd.IP${IP}
 
 bsd.IP${IP}:
 	cd ${.CURDIR}/../../../sys/arch/${MACHINE}/compile/RAMDISK-IP${IP} && \
-	    su ${BUILDUSER} -c '${MAKE} config && ${MAKE} clean && exec ${MAKE}'
+	    su ${BUILDUSER} -c '${MAKE} config && ${MAKE} clean && exec ${MAKE} ${NUMJOBS}'
 	cp -p ${.CURDIR}/../../../sys/arch/${MACHINE}/compile/RAMDISK-IP${IP}/obj/bsd bsd.IP${IP}
 .endfor
 
