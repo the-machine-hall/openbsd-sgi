@@ -152,6 +152,7 @@ struct machine_bus_dma_tag mace_bus_dma_tag = {
 	_dmamap_unload,
 	_dmamap_sync,
 	_dmamem_alloc,
+	_dmamem_alloc_range,
 	_dmamem_free,
 	_dmamem_map,
 	_dmamem_unmap,
