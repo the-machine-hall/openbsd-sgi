@@ -4,7 +4,7 @@ Planned since a while - actually since [OpenBSD](https://www.openbsd.org/) retir
 
 ## Releases ##
 
-For a start the releases usually only provide the kernels because those can be used with [OpenBSD/octeon](https://www.openbsd.org/octeon.html) file systems, too. But for OpenBSD/sgi 7.0 to 7.3 I managed to also build the usual release files (with some exceptions), see the respective release pages for details.
+For a start the releases usually only provide the kernels because those can be used with [OpenBSD/octeon](https://www.openbsd.org/octeon.html) file systems, too. But for OpenBSD/sgi 7.0 to 7.4 I managed to also build the usual release files (with some exceptions), see the respective release pages for details.
 
 * [OpenBSD/sgi 7.0](https://github.com/the-machine-hall/openbsd-src/releases/tag/openbsd.70.sgi)
 
@@ -19,6 +19,10 @@ For a start the releases usually only provide the kernels because those can be u
 * [OpenBSD/sgi 7.5](https://github.com/the-machine-hall/openbsd-src/releases/tag/openbsd.75.sgi)
 
 * [OpenBSD/sgi 7.6](https://github.com/the-machine-hall/openbsd-src/releases/tag/openbsd.76.sgi)
+
+* [OpenBSD/sgi 7.7](https://github.com/the-machine-hall/openbsd-src/releases/tag/openbsd.77.sgi)
+
+* [OpenBSD/sgi 7.8](https://github.com/the-machine-hall/openbsd-src/releases/tag/openbsd.78.sgi)
 
 ## Branches ##
 
@@ -40,6 +44,10 @@ For each OpenBSD release I start with the release commit and apply the list of s
 
 * [sgi-is-alive-at-7.6](https://github.com/the-machine-hall/openbsd-src/tree/sgi-is-alive-at-7.6)
 
+* [sgi-is-alive-at-7.7](https://github.com/the-machine-hall/openbsd-src/tree/sgi-is-alive-at-7.7)
+
+* [sgi-is-alive-at-7.8](https://github.com/the-machine-hall/openbsd-src/tree/sgi-is-alive-at-7.8)
+
 ### Release branches ###
 
 The release branches since 7.1 are forked from the current sgi-never-retired-* branch after the respective release commit and include changes for the builds to complete successfully and in an adequate time (e.g. omit building LLVM/clang).
@@ -49,6 +57,8 @@ The release branches since 7.1 are forked from the current sgi-never-retired-* b
 * [sgi-release-7.2](https://github.com/the-machine-hall/openbsd-src/tree/sgi-release-7.2)
 
 * [sgi-release-7.3](https://github.com/the-machine-hall/openbsd-src/tree/sgi-release-7.3)
+
+* [sgi-release-7.4](https://github.com/the-machine-hall/openbsd-src/tree/sgi-release-7.4)
 
 ### Special branch ###
 
