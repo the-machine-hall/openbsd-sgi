@@ -1218,8 +1218,6 @@ hw_cpu_hatch(struct cpu_info *ci)
 	ci->ci_flags |= CPUF_RUNNING;
 	membar_sync();
 
-	ncpus++;
-
 	spl0();
 	(void)updateimask(0);
 

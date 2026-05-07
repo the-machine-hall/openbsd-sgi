@@ -574,8 +574,6 @@ hw_cpu_hatch(struct cpu_info *ci)
 	ci->ci_flags |= CPUF_RUNNING;
 	membar_sync();
 
-	ncpus++;
-
 	xheart_setintrmask(0);
 
 	spl0();
